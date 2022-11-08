@@ -1,0 +1,38 @@
+[
+    {  "service_id":"1",   
+        "title":"Labour Law",
+        "price":"$550",
+        "img":"https://i.ibb.co/t4fPpY7/labourp.jpg",
+        "details":"Our law firm specializes in all questions relating to labor law and works constitution law and works for you nationwide. You can expect from us highly qualified professional advice and a committed representation of your interests that goes far beyond the usual. Before we start working for you, we carry out a comprehensive analysis of your employment law situation.Our goal is to solve your labor law problems quickly and comprehensively. To this end, we develop concepts and alternatives with you, which we implement quickly in order to guarantee you planning security."
+    },
+    {   "service_id":"2",
+        "title":"Family Law",
+        "price":"$600",
+        "img":"https://i.ibb.co/br3YQjg/family.png",
+        "details":"Family law is a very complex and one of the most underestimated areas of law.Family law mainly includes the legal relationships of marriage and family with a focus on marriage, divorce and maintenance. However, it also regulates the legal relationship between parents and children, i.e. custody rights, paternity rights and the right to child support."
+    },
+    {   "service_id":"3",
+        "title":"Commercial Law",
+        "price":"$500",
+        "img":"https://i.ibb.co/Stfcw1y/business.png",
+        "details":"The basic function of commercial law is the regulation of all legal matters in economic contacts between traders, corporations, consumers and government agencies."
+    },
+    {   "service_id":"4",
+        "title":"Inheritance Law",
+        "price":"$600",
+        "img":"https://i.ibb.co/rtJLCv7/inheritence.png",
+        "details":"We have many years of experience in the field of inheritance law. In inheritance law, there are a wide variety of questions and constellations, both in the question of the design of testamentary dispositions or the succession during one's lifetime, as well as during or after the inheritance."
+    },
+    {   "service_id":"5",
+        "title":"Mediation",
+        "price":"$300",
+        "img":"https://i.ibb.co/8jGw0Qv/mediation.jpg",
+        "details":"Today's mediation is a structured process for dealing with conflicts. The goal is to work out a solution that is satisfactory for everyone involved and that shapes the future. Participation in a mediation process is voluntary."
+    },
+    {   "service_id":"6",
+        "title":"Intellectual Property Law",
+        "price":"$500",
+        "img":"https://i.ibb.co/6FWTzcD/intellectual.jpg",
+        "details":"There is no legal definition of the terms “intellectual property rights” or “industrial property rights”. Ultimately, these are collective terms that describe a large number of different areas of law in the field of intellectual property rights. Feel free to contact us."
+    }
+]
