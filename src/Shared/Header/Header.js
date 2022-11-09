@@ -21,6 +21,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
@@ -30,7 +31,7 @@ export default function Header() {
       <Flex
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
-        minH={"60px"}
+        minH={"100px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
@@ -58,7 +59,7 @@ export default function Header() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-            Logo
+            Legal Aid
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
@@ -92,7 +93,7 @@ export default function Header() {
               bg: "pink.300",
             }}
           >
-            Sign Up
+            <Link to="/"> Sign Up</Link>
           </Button>
         </Stack>
       </Flex>
@@ -259,41 +260,19 @@ const MobileNavItem = ({ label, children, href }) => {
 
 const NAV_ITEMS = [
   {
-    label: "Inspiration",
-    children: [
-      {
-        label: "Explore Design Work",
-        subLabel: "Trending Design to inspire you",
-        href: "#",
-      },
-      {
-        label: "New & Noteworthy",
-        subLabel: "Up-and-coming Designers",
-        href: "#",
-      },
-    ],
+    label: "Home",
+    href: "/",
   },
   {
-    label: "Find Work",
-    children: [
-      {
-        label: "Job Board",
-        subLabel: "Find your dream design job",
-        href: "#",
-      },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
-    ],
+    label: "Services",
+    href: "/services",
   },
   {
-    label: "Learn Design",
-    href: "#",
+    label: "Blogs",
+    href: "/blogs",
   },
   {
-    label: "Hire Designers",
-    href: "#",
+    label: "My Reviews",
+    href: "/myreviews",
   },
 ];
