@@ -1,19 +1,16 @@
 import {
   Box,
   Button,
-  Container,
   FormControl,
-  FormHelperText,
   FormLabel,
   Input,
   Text,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 
 const Login = () => {
-  const [error, setError] = useState("");
   const { signIn } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -32,39 +29,48 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         form.reset();
-        setError("");
+
         navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error);
-        setError(error.message);
       });
   };
   return (
-    <Container my={24}>
-      <FormControl onSubmit={handleSubmit}>
-        <FormLabel fontSize={20}>Email address</FormLabel>
-        <Input name="email" type="email" placeholder="Enter email" />
+    <div>
+      <form
+        style={{
+          width: "400px",
+          margin: "auto",
+          marginTop: "100px",
+          marginBottom: "100px",
+        }}
+        onSubmit={handleSubmit}
+      >
+        <FormControl id="email" isRequired>
+          <FormLabel>Email address</FormLabel>
+          <Input name="email" type="email" />
+        </FormControl>
 
-        <FormLabel fontSize={20}>Password</FormLabel>
-        <Input name="password" type="password" placeholder="Password" />
+        <FormControl id="password" isRequired>
+          <FormLabel>Password</FormLabel>
+          <Input name="password" type="password" />
+        </FormControl>
 
         <Button fontSize={20} my={4} colorScheme="blue" type="submit">
           Login
         </Button>
 
-        <FormHelperText colorScheme="red">{error}</FormHelperText>
-      </FormControl>
-
-      <Text fontSize={20} fontWeight={500}>
-        New to here? Please
-        <Link to="/signup">
-          <Box color="blue.600" mx={2} fontWeight={500} as="span">
-            Sign Up
-          </Box>
-        </Link>
-      </Text>
-    </Container>
+        <Text fontSize={20} fontWeight={500}>
+          New to here? Please
+          <Link to="/signup">
+            <Box color="blue.600" mx={2} fontWeight={500} as="span">
+              Sign Up
+            </Box>
+          </Link>
+        </Text>
+      </form>
+    </div>
   );
 };
 

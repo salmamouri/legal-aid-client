@@ -20,10 +20,18 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 
 export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.error(error));
+  };
 
   return (
     <Box>
@@ -66,35 +74,44 @@ export default function Header() {
           </Flex>
         </Flex>
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-        >
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href={"#"}
+        {user?.uid ? (
+          <>
+            <Text>{user?.displayName}</Text>
+            <Button colorScheme="blue" onClick={handleLogOut}>
+              Logout
+            </Button>
+          </>
+        ) : (
+          <Stack
+            flex={{ base: 1, md: 0 }}
+            justify={"flex-end"}
+            direction={"row"}
+            spacing={6}
           >
-            <Link to="/login">Sign In</Link>
-          </Button>
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"pink.400"}
-            href={"#"}
-            _hover={{
-              bg: "pink.300",
-            }}
-          >
-            <Link to="/signup"> Sign Up</Link>
-          </Button>
-        </Stack>
+            <Button
+              as={"a"}
+              fontSize={"sm"}
+              fontWeight={400}
+              variant={"link"}
+              href={"#"}
+            >
+              <Link to="/login">Sign In</Link>
+            </Button>
+            <Button
+              display={{ base: "none", md: "inline-flex" }}
+              fontSize={"sm"}
+              fontWeight={600}
+              color={"white"}
+              bg={"blue.600"}
+              href={"#"}
+              _hover={{
+                bg: "pink.300",
+              }}
+            >
+              <Link to="/signup"> Sign Up</Link>
+            </Button>
+          </Stack>
+        )}
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
@@ -108,84 +125,54 @@ const DesktopNav = () => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const { user } = useContext(AuthContext);
 
   return (
     <Stack direction={"row"} spacing={4}>
-      {NAV_ITEMS.map((navItem) => (
-        <Box key={navItem.label}>
-          <Popover trigger={"hover"} placement={"bottom-start"}>
-            <PopoverTrigger>
-              <Link
-                p={2}
-                to={navItem.href ?? "#"}
-                fontSize={"sm"}
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: "none",
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Link>
-            </PopoverTrigger>
-
-            {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={"xl"}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={"xl"}
-                minW={"sm"}
-              >
-                <Stack>
-                  {navItem.children.map((child) => (
-                    <DesktopSubNav key={child.label} {...child} />
-                  ))}
-                </Stack>
-              </PopoverContent>
-            )}
-          </Popover>
-        </Box>
-      ))}
+      {user?.uid
+        ? NAV_ITEMS.map((navItem) => (
+            <Box key={navItem.label}>
+              <Popover trigger={"hover"} placement={"bottom-start"}>
+                <PopoverTrigger>
+                  <Link
+                    p={2}
+                    to={navItem.href ?? "#"}
+                    fontSize={"sm"}
+                    fontWeight={500}
+                    color={linkColor}
+                    _hover={{
+                      textDecoration: "none",
+                      color: linkHoverColor,
+                    }}
+                  >
+                    {navItem.label}
+                  </Link>
+                </PopoverTrigger>
+              </Popover>
+            </Box>
+          ))
+        : NAV_ITEMS.slice(0, 3).map((navItem) => (
+            <Box key={navItem.label}>
+              <Popover trigger={"hover"} placement={"bottom-start"}>
+                <PopoverTrigger>
+                  <Link
+                    p={2}
+                    to={navItem.href ?? "#"}
+                    fontSize={"sm"}
+                    fontWeight={500}
+                    color={linkColor}
+                    _hover={{
+                      textDecoration: "none",
+                      color: linkHoverColor,
+                    }}
+                  >
+                    {navItem.label}
+                  </Link>
+                </PopoverTrigger>
+              </Popover>
+            </Box>
+          ))}
     </Stack>
-  );
-};
-
-const DesktopSubNav = ({ label, href, subLabel }) => {
-  return (
-    <Link
-      to={href}
-      role={"group"}
-      display={"block"}
-      p={2}
-      rounded={"md"}
-      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
-    >
-      <Stack direction={"row"} align={"center"}>
-        <Box>
-          <Text
-            transition={"all .3s ease"}
-            _groupHover={{ color: "pink.400" }}
-            fontWeight={500}
-          >
-            {label}
-          </Text>
-        </Box>
-        <Flex
-          transition={"all .3s ease"}
-          transform={"translateX(-10px)"}
-          opacity={0}
-          _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
-          justify={"flex-end"}
-          align={"center"}
-          flex={1}
-        >
-          <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
-        </Flex>
-      </Stack>
-    </Link>
   );
 };
 
@@ -272,5 +259,9 @@ const NAV_ITEMS = [
   {
     label: "My Reviews",
     href: "/myreviews",
+  },
+  {
+    label: "Add Service",
+    href: "/addservice",
   },
 ];

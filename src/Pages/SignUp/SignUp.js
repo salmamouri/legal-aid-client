@@ -1,35 +1,21 @@
 import {
   Box,
   Button,
-  ButtonGroup,
-  Container,
+  Center,
   FormControl,
-  FormHelperText,
   FormLabel,
   Icon,
   Input,
   Text,
 } from "@chakra-ui/react";
 import { GoogleAuthProvider } from "firebase/auth";
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import { FaGoogle } from "react-icons/fa";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 
-const Register = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
-
-  const [error, setError] = useState("");
-
-  const handleUpdateProfileUser = (name, photoUrl) => {
-    const profile = {
-      displayName: name,
-      photoUrl: photoUrl,
-    };
-    updateUserProfile(profile)
-      .then(() => {})
-      .catch((error) => console.error(error));
-  };
+const SignUp = () => {
+  const { createUser } = useContext(AuthContext);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,20 +23,18 @@ const Register = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    const photoURL = form.photoURL.value;
+
     // console.log(email, password, name, photoUrl);
 
     createUser(email, password)
       .then((result) => {
         const user = result.user;
         console.log(user);
-        setError("");
+
         form.reset();
-        handleUpdateProfileUser(name, photoURL);
       })
       .catch((error) => {
         console.error(error);
-        setError(error.message);
       });
   };
 
@@ -67,51 +51,53 @@ const Register = () => {
       .catch((error) => console.error(error));
   };
   return (
-    <Container my={24}>
-      <FormControl my={12} onSubmit={handleSubmit}>
-        <FormLabel fontSize={20}>Your Name</FormLabel>
-        <Input type="text" name="name" placeholder="Enter Your Name" />
+    <Box>
+      <form
+        style={{
+          width: "400px",
+          margin: "auto",
+          marginTop: "80px",
+          marginBottom: "30px",
+        }}
+        onSubmit={handleSubmit}
+        my={24}
+      >
+        <FormControl id="Name">
+          <FormLabel>Name</FormLabel>
+          <Input name="name" type="text" />
+        </FormControl>
 
-        <FormLabel fontSize={20}>Email address</FormLabel>
-        <Input type="email" name="email" placeholder="Enter email" required />
+        <FormControl id="email" isRequired>
+          <FormLabel>Email address</FormLabel>
+          <Input name="email" type="email" />
+        </FormControl>
 
-        <FormLabel fontSize={20}>Password</FormLabel>
-        <Input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
+        <FormControl id="password" isRequired>
+          <FormLabel>Password</FormLabel>
+          <Input name="password" type="password" />
+        </FormControl>
 
-        <Button fontSize={20} colorScheme="blue" my={2} type="submit">
+        <Button fontSize={20} my={4} colorScheme="blue" type="submit">
           Sign Up
         </Button>
-        <FormHelperText className="text-danger">{error}</FormHelperText>
-      </FormControl>
-      <Text fontSize={20} fontWeight={600}>
-        Already have an account?{" "}
-        <Link to="/login">
-          <Box color="blue.500" as="span">
-            Login
-          </Box>
-        </Link>
-      </Text>
 
-      <div className=" m-5">
-        <ButtonGroup vertical>
-          <Button
-            fontSize={18}
-            onClick={handleGoogleSignIn}
-            colorScheme="blue"
-            my={3}
-          >
-            <Icon mx={2} as={FaGoogle} />
-            SignUp with Google
-          </Button>
-        </ButtonGroup>
-      </div>
-    </Container>
+        <Text fontSize={20} fontWeight={500}>
+          Already have an account?
+          <Link to="/login">
+            <Box color="blue.600" mx={2} fontWeight={500} as="span">
+              Login
+            </Box>
+          </Link>
+        </Text>
+      </form>
+      <Center>
+        <Button my={4} colorScheme="blue" onClick={handleGoogleSignIn}>
+          <Icon mx={3} as={FaGoogle} />
+          SignUp with Google
+        </Button>
+      </Center>
+    </Box>
   );
 };
 
-export default Register;
+export default SignUp;
