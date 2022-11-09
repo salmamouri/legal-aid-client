@@ -9,9 +9,10 @@ import {
   Image,
   Button,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const ServiceCard = ({ service }) => {
-  const { img, title, price } = service;
+  const { img, title, price, _id } = service;
   return (
     <div>
       <Center py={12}>
@@ -66,7 +67,9 @@ const ServiceCard = ({ service }) => {
                 {price}
               </Text>
             </Stack>
-            <Button colorScheme="blue">Details</Button>
+            <Link to={`/details/${_id}`}>
+              <Button colorScheme="blue">Details</Button>
+            </Link>
           </Stack>
         </Box>
       </Center>
