@@ -79,7 +79,7 @@ export default function Header() {
             variant={"link"}
             href={"#"}
           >
-            Sign In
+            <Link to="/login">Sign In</Link>
           </Button>
           <Button
             display={{ base: "none", md: "inline-flex" }}
@@ -92,7 +92,7 @@ export default function Header() {
               bg: "pink.300",
             }}
           >
-            <Link to="/"> Sign Up</Link>
+            <Link to="/signup"> Sign Up</Link>
           </Button>
         </Stack>
       </Flex>

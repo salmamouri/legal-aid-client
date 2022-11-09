@@ -10,6 +10,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 const ServiceCard = ({ service }) => {
   const { img, title, price, _id } = service;
