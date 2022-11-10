@@ -9,15 +9,17 @@ import {
   Image,
   SimpleGrid,
 } from "@chakra-ui/react";
+import Review from "./Review";
 
 const Details = () => {
   const service = useLoaderData();
 
   return (
-    <SimpleGrid columns={2} spacing={24} py={24}>
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 2 }} spacing={12} py={24}>
       <Box
         role={"group"}
         p={6}
+        mx={4}
         maxW={"550px"}
         w={"full"}
         bg={useColorModeValue("white", "gray.800")}
@@ -66,10 +68,15 @@ const Details = () => {
               {service.details}
             </Text>
           </Stack>
+          <Stack direction={"row"} align={"center"}>
+            <Text fontWeight={800} fontSize={"xl"}>
+              Fee:{service.price}
+            </Text>
+          </Stack>
         </Stack>
       </Box>
       <Box>
-        <h3>Review</h3>
+        <Review></Review>
       </Box>
     </SimpleGrid>
   );

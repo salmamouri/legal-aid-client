@@ -51,13 +51,17 @@ const ServiceCard = ({ service }) => {
               },
             }}
           >
-            <Image
-              rounded={"lg"}
-              height={230}
-              width={282}
-              objectFit={"cover"}
-              src={img}
-            />
+            <PhotoProvider>
+              <PhotoView src={img}>
+                <Image
+                  rounded={"lg"}
+                  height={230}
+                  width={282}
+                  objectFit={"cover"}
+                  src={img}
+                />
+              </PhotoView>
+            </PhotoProvider>
           </Box>
           <Stack pt={10} align={"center"}>
             <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
