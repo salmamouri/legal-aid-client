@@ -6,7 +6,7 @@ import TopServiceCard from "./TopServiceCard";
 const TopServices = () => {
   const [topServices, setTopServices] = useState();
   useEffect(() => {
-    fetch("http://localhost:5000/topservices")
+    fetch("https://legal-aid-server-six.vercel.app/topservices")
       .then((res) => res.json())
       .then((data) => setTopServices(data));
   }, []);

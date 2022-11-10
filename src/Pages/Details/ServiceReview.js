@@ -7,7 +7,7 @@ const ServiceReview = () => {
   const { _id } = useLoaderData();
   const [reviews, setReviews] = useState();
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews/${_id}`)
+    fetch(`https://legal-aid-server-six.vercel.app/reviews/${_id}`)
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, [_id]);
