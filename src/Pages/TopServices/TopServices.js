@@ -15,12 +15,14 @@ const TopServices = () => {
   return (
     <>
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={3}>
-        {topServices?.map((topService) => (
-          <TopServiceCard
-            key={topService._id}
-            topService={topService}
-          ></TopServiceCard>
-        ))}
+        {topServices
+          ?.slice(Math.max(topServices.length - 3, 0))
+          .map((topService) => (
+            <TopServiceCard
+              key={topService._id}
+              topService={topService}
+            ></TopServiceCard>
+          ))}
       </SimpleGrid>
       <Center>
         <Button colorScheme="blue" size="md">

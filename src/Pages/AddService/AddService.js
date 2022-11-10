@@ -1,29 +1,34 @@
+import React, { useState } from "react";
 import {
+  Box,
   Button,
   Center,
+  FormLabel,
   Heading,
-  SimpleGrid,
+  Input,
   Textarea,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
 
 const AddService = () => {
-  const formEl = useRef();
   const [details, setDetails] = useState("");
-  console.log(details);
-  const handleAddService = (event) => {
+
+  const addService = (event) => {
     event.preventDefault();
     const form = event.target;
     const name = form.name.value;
     const price = form.price.value;
-    const image = form.image.value;
+    const img = form.image.value;
+    form.reset();
+    alert(" Congratulation!!! New Service Added");
+    // console.log(name, price, img);
 
     const newService = {
       title: name,
-      price,
-      img: image,
-      details,
+      price: price,
+      img: img,
+      details: details,
     };
+    console.log(newService);
 
     fetch("http://localhost:5000/services", {
       method: "POST",
@@ -36,30 +41,31 @@ const AddService = () => {
       .then((data) => console.log(data))
       .catch((err) => console.error(err));
   };
-
   return (
     <div>
-      <Center my={10}>
-        <Heading color="blue.600">Add Service</Heading>
-      </Center>
-      <SimpleGrid mx={300} my={50}>
-        <form ref={formEl}>
-          <label htmlFor="name-input">Name</label>
-          <input id="name-input" name="name" />
-          <label htmlFor="team-input">price</label>
-          <input id="team-input" name="price" />
+      <Box m={5}>
+        <Heading color="blue.600" mx="auto" marginBottom={8}>
+          <Center> Add Service</Center>
+        </Heading>
 
+        <form onSubmit={addService} style={{ width: "550px" }}>
+          <FormLabel>Name</FormLabel>
+          <Input name="name" type="text" />
+          <FormLabel>Price</FormLabel>
+          <Input name="price" type="text" />
+          <FormLabel>Image</FormLabel>
+          <Input name="image" type="text" />
           <Textarea
             onChange={(e) => setDetails(e.target.value)}
-            name="details"
+            name="review"
             my={2}
-            placeholder="Add Details"
+            placeholder="Add a review"
           ></Textarea>
-          <Button onClick={handleAddService} colorScheme="blue" my={4}>
+          <Button type="submit" colorScheme="blue" my={4}>
             Add Review
           </Button>
         </form>
-      </SimpleGrid>
+      </Box>
     </div>
   );
 };
