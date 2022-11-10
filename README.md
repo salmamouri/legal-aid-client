@@ -1,6 +1,6 @@
 ### Website Name: Legal Aid
 
-[Live Site URL]()
+[Live Site URL](https://legal-aid-2f4b3.web.app/)
 
 ### What I did in this project?
 
